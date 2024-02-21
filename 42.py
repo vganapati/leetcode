@@ -44,7 +44,7 @@ def trap_2(height,step=1):
         water += trap_1(height_i)
     return water + base_height
 
-def trap(height):
+def trap_3(height):
     height = np.array(height)
     lowest_height = np.min(height[height>0])
     lowest_height_ind = np.nonzero(height>=lowest_height)[0]
@@ -81,7 +81,32 @@ def trap_helper(height):
     else:
         return water + trap_helper(height[max(high_0_ind,high_1_ind):]) +\
             trap_helper(height[:min(high_0_ind,high_1_ind)+1]) 
+
+def find_nearest_high(current_ind, height):
+    # find pointer_1_ind
+    pointer_1_ind = current_ind
+    current_height = height[current_ind]
+    for ind,h in enumerate(height[current_ind+1:]):
+        if h>=current_height:
+            pointer_1_ind = ind + current_ind + 1
+            current_height = h
+    return pointer_1_ind
     
+def trap(height):
+    pointer_0_ind = 0 # point in the past at the greatest height
+    pointer_1_ind = 0 # point in the future at the greatest height
+    water = 0
+    for ind,h in enumerate(height):
+
+        # update pointer_0_ind if current point is the same or higher
+        if h>=height[pointer_0_ind]:
+            pointer_0_ind = ind
+
+        # update pointer_1_ind if we have reached or exceeded the pointer
+        if ind >= pointer_1_ind:
+            pointer_1_ind = find_nearest_high(ind, height)
+        water += min(height[pointer_1_ind], height[pointer_0_ind])-h
+    return water
 
 def test_0():
     assert trap([0,1,0,2,1,0,1,3,2,1,2,1]) == 6
@@ -89,6 +114,14 @@ def test_0():
 def test_1():
     assert trap([4,2,0,3,2,5]) == 9
 
+def test_2():
+    assert trap([0,7,1,4,6]) == 7
+
+def test_3():
+    assert trap([2,8,5,5,6,1,7,4,5]) == 12
+
 if __name__ == '__main__':
     test_0()
     test_1() 
+    test_2()
+    test_3()
