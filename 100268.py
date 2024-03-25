@@ -1,4 +1,4 @@
-def maximumLengthSubstring(s):
+def stringIndices(wordsContainer, wordsQuery):
     pass
 
 def test_0():
