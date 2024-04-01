@@ -14,7 +14,7 @@ def removeAndFindMax(point_0, point_dist_mat, points):
     max_0 = np.max(point_dist_mat[np.repeat(np.expand_dims(remove_0_vec,axis=1), len(points)-1,axis=1), np.repeat(np.expand_dims(remove_0_vec,axis=0), len(points)-1,axis=0)])
     return max_0
 
-def minimumDistance(points):
+def minimumDistance_1(points):
     # which 2 points cause the maximum distance, and which one to remove?
     dist_list = []
     max_dist = 0
@@ -42,6 +42,38 @@ def minimumDistance(points):
             minimum = max_val
     return minimum
 
+
+def minimumDistance(points):
+    val, i, j = minimumDistance_helper(points)
+    val_0, i_0, j_0 = minimumDistance_helper(points[:i] + points[i+1:])
+    val_1, i_1, j_1 = minimumDistance_helper(points[:j] + points[j+1:])
+    return min([val_0, val_1])
+
+def minimumDistance_helper(points):
+    max_sum, min_sum, max_diff, min_diff = -10**9, 10**9, -10**9, 10**9
+    max_sum_ind, min_sum_ind, max_diff_ind, min_diff_ind = None, None, None, None
+    for ind,point in enumerate(points):
+        sum = point[0] + point[1]
+        diff = point[0] - point[1]
+
+        if sum >= max_sum:
+            max_sum = sum
+            max_sum_ind = ind
+        if sum <= min_sum:
+            min_sum = sum
+            min_sum_ind = ind
+        
+        if diff >= max_diff:
+            max_diff = diff
+            max_diff_ind = ind
+        if diff <= min_diff:
+            min_diff = diff
+            min_diff_ind = ind
+    if max_sum - min_sum > max_diff - min_diff:
+        return max_sum - min_sum, max_sum_ind, min_sum_ind
+    else:
+        return max_diff - min_diff, max_diff_ind, min_diff_ind
+
 def test_0():
     points = [[3,10],[5,15],[10,2],[4,4]]
     assert minimumDistance(points) == 12
@@ -50,6 +82,11 @@ def test_1():
     points = [[1,1],[1,1],[1,1]]
     assert minimumDistance(points) == 0
 
+def test_2():
+    points = [[100000000,100000000],[100000000,100000000],[100000000,100000000],[100000000,100000000],[100000000,100000000],[100000000,100000000],[100000000,100000000],[100000000,100000000],[100000000,100000000],[100000000,100000000]]
+    assert minimumDistance(points) == 0
+
 if __name__ == '__main__':
+    test_2()
     test_0()
     test_1()
