@@ -9,14 +9,8 @@ class Solution:
 
         shortest_paths = [n-1]*len(queries)
         for ind, query in enumerate(queries):
-            if query[1] not in city_graph[query[0]]: # do not repeat for duplicate queries
-                city_graph[query[0]].append(query[1])
-                shortest_paths[ind] = self.shortest_path(n, city_graph)
-            else:
-                if ind == 0:
-                    pass
-                else:
-                    shortest_paths[ind] = shortest_paths[ind-1]
+            city_graph[query[0]].append(query[1])
+            shortest_paths[ind] = self.shortest_path(n, city_graph)
         return shortest_paths
 
     def shortest_path(self, n, city_graph):
