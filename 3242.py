@@ -47,5 +47,5 @@ class neighborSum:
         return val
 
 obj = neighborSum([[0,1,2],[3,4,5],[6,7,8]])
-print(obj.adjacentSum(1)) 
-print(obj.diagonalSum(4)) 
+print(obj.adjacentSum(1)==6)
+print(obj.diagonalSum(4)==16) 
