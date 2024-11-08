@@ -23,7 +23,7 @@ class Solution:
             curr = curr.next
         return list
             
-    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    def reverseList_iterative(self, head: Optional[ListNode]) -> Optional[ListNode]:
         prev = None
         curr = head
         while curr is not None:
@@ -33,6 +33,16 @@ class Solution:
             curr = tmp
 
         return prev
+    
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head is None or head.next is None:
+            return head
+        else:
+            last_node_reverse_1 = head.next
+            reverse_1 = self.reverseList(head.next) 
+            last_node_reverse_1.next = head
+            head.next = None
+            return reverse_1
 
 if __name__ == "__main__":
     solution = Solution()
