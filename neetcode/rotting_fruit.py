@@ -19,31 +19,19 @@ class Solution:
                     freshFruit += 1
         
         time = 0
+        directions = [[1,0],[-1,0],[0,1],[0,-1]]
         while rottedVec and freshFruit>0:
             time += 1
             initLen = len(rottedVec)
             for ind in range(initLen):
                 i,j = rottedVec.popleft()
-                if i+1 < rows:
-                    if grid[i+1][j] == 1:
-                        grid[i+1][j] = 2
-                        rottedVec.append([i+1,j])
-                        freshFruit -= 1
-                if i-1 >= 0:
-                    if grid[i-1][j] == 1:
-                        grid[i-1][j] = 2
-                        rottedVec.append([i-1, j])
-                        freshFruit -= 1
-                if j+1 < col:
-                    if grid[i][j+1] == 1:
-                        grid[i][j+1] = 2
-                        rottedVec.append([i, j+1])
-                        freshFruit -= 1
-                if j-1 >= 0:
-                    if grid[i][j-1] == 1:
-                        grid[i][j-1] = 2
-                        rottedVec.append([i, j-1])
-                        freshFruit -= 1
+                for dir in directions:
+                    i_new, j_new = i + dir[0], j + dir[1]
+                    if i_new < rows and i_new >= 0 and j_new < col and j_new >= 0:
+                        if grid[i_new][j_new] == 1:
+                            grid[i_new][j_new] = 2
+                            rottedVec.append([i_new, j_new])
+                            freshFruit -= 1
         if freshFruit == 0:
             return time
         elif freshFruit > 0:
