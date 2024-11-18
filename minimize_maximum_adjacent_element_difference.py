@@ -1,5 +1,9 @@
 from typing import List
 
+"""
+https://leetcode.com/problems/minimize-the-maximum-adjacent-element-difference/solutions/6055349/java-c-python-no-binary-search-o-1-space/
+"""
+
 class Solution:
     def minDifference(self, nums: List[int]) -> int:
         smallest_val = 10**9 + 1
