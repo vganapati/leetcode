@@ -69,6 +69,4 @@ assert solution.minDifference([1,12]) == 11
 assert solution.minDifference([1,2,-1,10,8]) == 4
 assert solution.minDifference([29,-1,-1]) == 0
 assert solution.minDifference([14,-1]) == 0
-
-
 assert solution.minDifference([-1,10,-1,8]) == 1
