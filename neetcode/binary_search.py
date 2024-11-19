@@ -2,17 +2,20 @@ from typing import List
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        l, r = 0, len(nums)-1
-        
-        while l <= r:
-            m = (r - l)//2 + l
-            if nums[m] == target:
-                return m
-            elif nums[m] < target:
-                l = m + 1
-            else:
-                r = m - 1
+        pointer_0 = 0
+        pointer_1 = len(nums)-1
+
+        while pointer_1>=pointer_0:
+            midpoint = (pointer_1 + pointer_0)//2
+            if nums[midpoint] == target:
+                return midpoint
+            elif nums[midpoint]>target:
+                pointer_1 = midpoint-1
+            else: # nums[midpoint] < target
+                pointer_0 = midpoint+1
         return -1
+
+
 
     def search_recursive(self, nums: List[int], target: int) -> int:
         if len(nums) == 1:
@@ -37,6 +40,10 @@ class Solution:
 if __name__ == "__main__":
     solution = Solution()
 
+    nums = [-1,0,2,4,6,8]
+    target = 4
+    assert solution.search(nums, target) == 3
+
     nums=[-1,0,3,5,9,12]
     target=13
     assert solution.search(nums, target) == -1
@@ -44,10 +51,6 @@ if __name__ == "__main__":
     nums=[-1,0,3,5,9,12]
     target=9
     assert solution.search(nums, target) == 4
-
-    nums = [-1,0,2,4,6,8]
-    target = 4
-    assert solution.search(nums, target) == 3
 
     nums = [-1,0,2,4,6,8]
     target = 3
