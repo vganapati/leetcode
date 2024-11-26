@@ -11,6 +11,8 @@ class Solution:
                     no_parents.add(letter)
                 else:
                     previous = words[ind-1]
+                    if word == previous[:len(word)]:
+                        return ""
                     if len(previous) <= ind_letter:
                         if letter not in nodes: 
                             nodes[letter] = [set(), set()]
