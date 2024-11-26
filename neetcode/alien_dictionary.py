@@ -29,6 +29,7 @@ class Solution:
                                 nodes[letter] = [set(parent), set()]
                             nodes[parent][1].add(letter)
         
+        breakpoint()
         # topological sort
         order = []
         while len(no_parents)>0:
@@ -38,7 +39,7 @@ class Solution:
                 nodes[child][0].remove(letter)
                 if len(nodes[child][0]) == 0:
                     no_parents.add(child)
-
+        breakpoint()
         if len(order) == len(nodes):
             return "".join(order)
         else:
@@ -48,6 +49,9 @@ class Solution:
 
 
 solution = Solution()
+
+words=["wrt","wrf","er","ett","rftt","te"]
+assert solution.foreignDictionary(words) == "wertf"
 
 words = ["wrtkj","wrt"]
 assert solution.foreignDictionary(words) == ""
