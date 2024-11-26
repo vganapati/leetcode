@@ -5,15 +5,16 @@ class Solution:
         nodes = {}
         no_parents = set()
         for ind, word in enumerate(words):
+            if ind>0:
+                previous = words[ind-1]
+                if len(word)<len(previous) and word == previous[:len(word)]:
+                    return ""
             for ind_letter, letter in enumerate(word):
                 if ind == 0:
                     nodes[letter] = [set(), set()] # parents, children
                     no_parents.add(letter)
                 else:
-                    previous = words[ind-1]
-                    if word == previous[:len(word)]:
-                        return ""
-                    if len(previous) <= ind_letter:
+                    if len(previous) <= ind_letter or (previous[0:ind_letter] != word[0:ind_letter]):
                         if letter not in nodes: 
                             nodes[letter] = [set(), set()]
                             no_parents.add(letter)
@@ -28,8 +29,6 @@ class Solution:
                             else:
                                 nodes[letter] = [set(parent), set()]
                             nodes[parent][1].add(letter)
-        
-        breakpoint()
         # topological sort
         order = []
         while len(no_parents)>0:
@@ -39,7 +38,6 @@ class Solution:
                 nodes[child][0].remove(letter)
                 if len(nodes[child][0]) == 0:
                     no_parents.add(child)
-        breakpoint()
         if len(order) == len(nodes):
             return "".join(order)
         else:
@@ -49,6 +47,9 @@ class Solution:
 
 
 solution = Solution()
+
+words=["z","z"]
+assert solution.foreignDictionary(words) == "z"
 
 words=["wrt","wrf","er","ett","rftt","te"]
 assert solution.foreignDictionary(words) == "wertf"
