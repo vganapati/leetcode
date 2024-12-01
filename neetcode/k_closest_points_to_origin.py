@@ -12,6 +12,5 @@ solution = Solution()
 points = [[0,2],[2,2]]; k = 1
 assert solution.kClosest(points, k) == [[0,2]]
 
-
 points = [[0,2],[2,0],[2,2]]; k = 2
 assert solution.kClosest(points, k) == [[0,2],[2,0]]
