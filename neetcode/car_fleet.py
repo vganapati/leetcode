@@ -2,6 +2,25 @@ from typing import List
 
 class Solution:
     def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        sorted_inds = sorted(range(len(position)), key=position.__getitem__)[::-1]
+        num_fleets = 0
+
+        for count, sorted_ind in enumerate(sorted_inds):
+            position_i = position[sorted_ind]
+            speed_i = speed[sorted_ind]
+            time_i = (target - position_i)/speed_i  # position_i + speed_i*time_i = target
+            if count == 0:
+                time = time_i
+                num_fleets += 1
+            elif time_i <= time:
+                pass # car is part of previous fleet
+            else:
+                # new fleet starts
+                time = time_i
+                num_fleets += 1
+        return num_fleets
+
+    def carFleet_unionFind(self, target: int, position: List[int], speed: List[int]) -> int:
         
         sorted_inds = sorted(range(len(position)), key=position.__getitem__)[::-1]
         num_parents = len(position)
