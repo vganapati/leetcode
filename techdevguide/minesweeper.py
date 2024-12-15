@@ -1,3 +1,7 @@
+"""
+https://leetcode.com/problems/minesweeper/description/
+"""
+
 from typing import List
 
 class Solution:
