@@ -7,7 +7,6 @@ class Solution:
 
         while True:
             mid = (pointer_0 + pointer_1)//2
-            print(pointer_0, mid, pointer_1)
             mid_val = arr[mid]
             prev = arr[mid-1] if mid>0 else -1
             after = arr[mid+1] if (mid+1)<len(arr) else -1
