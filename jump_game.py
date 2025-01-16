@@ -3,7 +3,6 @@ from typing import List
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         # greedy solution
-
         current_jumps = nums[0]
         for num in nums[1:]:
             current_jumps -= 1
